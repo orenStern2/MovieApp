@@ -22,6 +22,14 @@ header {
     background-color: var(--secondary-color);
 }
 
+.form {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Add this line to center the content horizontally */
+}
+
 .search {
     background-color: transparent;
     border: 2px solid var(--primary-color);
@@ -30,6 +38,12 @@ header {
     font-size: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
+    width: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Change 'right' to 'center' */
+    margin: 1rem;
     
 }
 
@@ -119,12 +133,25 @@ main {
     box-shadow: 0 4px 5px rgba(0, 0, 0 , 0.2);
 }
 
-.search {
-    width: 300px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: right;
-    margin: 1rem;
+/* BEGIN: Mobile Styles */
+@media (max-width: 600px) {
+    body {
+        background-color: var(--primary-color);
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
+    header {
+        padding: 1rem;
+        display: flex;
+        background-color: var(--secondary-color);
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
 }
+/* END: Mobile Styles */
