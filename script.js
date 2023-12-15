@@ -4,6 +4,15 @@ const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=0aa7bf3cd8
 const main = document.getElementById('main');
 const form = document.getElementById('form');
 const search = document.getElementById('search');
+const sortDate = document.getElementById('sortDate');
+const sortRate = document.getElementById('sortRate');
+
+let moviesData = [];
+
+
+
+
+
 
 // get initial movies
 getMovies(API_URL);
@@ -13,9 +22,15 @@ async function getMovies(url) {
     const data = await res.json();
 
     showMovies(data.results);
+
+
+
+    
+
 }
 
 function showMovies(movies) {
+    moviesData = movies;
     MediaDeviceInfo.innerHTML = ''; // clear main
     movies.forEach((movie) => {
         const { title, poster_path, vote_average, overview, release_date, original_language} = movie; // destructuring the movie object
@@ -66,4 +81,17 @@ form.addEventListener('submit', (e) => {
     } else {
         window.location.reload();
     }
+});
+
+
+sortDate.addEventListener('click', () => {
+    main.innerHTML = '';
+    const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+    showMovies(sortedMovies);
+});
+
+sortRate.addEventListener('click', () => {
+    main.innerHTML = '';
+    const sortedMovies = [...moviesData].sort((a, b) => b.vote_average - a.vote_average);
+    showMovies(sortedMovies);
 });
