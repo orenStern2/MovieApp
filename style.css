@@ -37,9 +37,7 @@ header {
     font-size: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
-    width: 400px;
-
-    
+    width: 400px;  
 }
 
 .search::placeholder {
@@ -148,5 +146,9 @@ main {
         align-items: center;
         width: 100%;
     }
+    .search {
+        width: 300px;  
+}
+    
 }
 /* END: Mobile Styles */
