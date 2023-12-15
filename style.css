@@ -154,5 +154,10 @@ main {
         align-items: center;
         width: 100%;
     }
+
+    .search {
+        width: 270px;
+    }
+
 }
 /* END: Mobile Styles */
