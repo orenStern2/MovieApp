@@ -14,21 +14,20 @@ body{
     background-color: var(--primary-color);
     font-family: 'Poppins', sans-serif;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
 }
 
 header {
     padding: 1rem;
     display: flex;
     background-color: var(--secondary-color);
+    justify-content: right;
+    width: 100%;
 }
 
-.form {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* Add this line to center the content horizontally */
-}
 
 .search {
     background-color: transparent;
@@ -38,12 +37,8 @@ header {
     font-size: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
-    width: 200px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Change 'right' to 'center' */
-    margin: 1rem;
+    width: 400px;
+
     
 }
 
