@@ -93,6 +93,10 @@ main {
     align-items: right;
 }
 
+#info-row{
+    /* padding: 10px; */
+
+}
 
 .movie-info span.green {
     color: lightgreen;
