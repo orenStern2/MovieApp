@@ -49,6 +49,7 @@ main {
 
 .form {
     width: 200px;
+    align-items: center;
 }
 
 .movie {
