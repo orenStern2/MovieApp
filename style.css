@@ -25,6 +25,7 @@ header {
 
 .search {
     background-color: transparent;
+    width: 50px;
     border: 2px solid var(--primary-color);
     border-radius: 50px;
     font-family: inherit;
