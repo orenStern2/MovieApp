@@ -45,7 +45,7 @@ function showMovies(movies) {
             <i style="padding: 1px"></i><span>${original_language}</span>
         </div>
      
-        <span id="year">${title} [${releaseYear}]</span>
+        <span class="notranslate" id="year">${title} [${releaseYear}]</span>
         <div class="overview">
             <h3>Overview</h3>
             ${overview}
