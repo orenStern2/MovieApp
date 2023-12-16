@@ -61,7 +61,7 @@ function showMovies(movies) {
         const releaseYear = new Date(release_date).getFullYear(); // get the year from the release_date
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
-
+        if (poster_path != null) {
         movieEl.innerHTML = `
         <img translate="no" src="${IMG_PATH + poster_path}" alt="${title}">
         <div class="movie-info">
@@ -76,6 +76,7 @@ function showMovies(movies) {
             </div>
         `
         main.appendChild(movieEl);
+        }
     })
 
 }
