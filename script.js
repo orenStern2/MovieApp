@@ -39,13 +39,13 @@ function showMovies(movies) {
         movieEl.classList.add('movie');
 
         movieEl.innerHTML = `
-        <img class="notranslate" src="${IMG_PATH + poster_path}" alt="${title}">
+        <img translate="no" src="${IMG_PATH + poster_path}" alt="${title}">
         <div class="movie-info">
-            <span id="info-row" class="${getClassByRate(vote_average)} notranslate">${vote_average}</span>
+            <span translate="no" id="info-row" class="${getClassByRate(vote_average)} ">${vote_average}</span>
             <i style="padding: 1px"></i><span>${original_language}</span>
         </div>
      
-        <span class="notranslate" id="year">${title} [${releaseYear}]</span>
+        <span translate="no" id="year">${title} [${releaseYear}]</span>
         <div class="overview">
             <h3>Overview</h3>
             ${overview}
