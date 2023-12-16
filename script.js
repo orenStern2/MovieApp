@@ -42,7 +42,7 @@ function showMovies(movies) {
         <img translate="no" src="${IMG_PATH + poster_path}" alt="${title}">
         <div class="movie-info">
             <span translate="no" id="info-row" class="${getClassByRate(vote_average)} ">${vote_average}</span>
-            <i style="padding: 1px"></i><span>${original_language}</span>
+            <i style="padding: 1px"></i><span translate="no">${original_language}</span>
         </div>
      
         <span translate="no" id="year">${title} [${releaseYear}]</span>
