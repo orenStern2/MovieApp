@@ -139,6 +139,7 @@ main {
 
 #sortDate  {
     background-color: var(--primary-color);
+    border: none;
     color: #fff;
     position: relative;
     border-radius: 15px;
@@ -149,7 +150,9 @@ main {
     outline: none; /* Add this line to remove the outline */
 }
 
-
+#sortDate:active {
+    transform: scale(0.8);
+}
 
 /* #sortDate .active {
     transform: scale(0.1);
@@ -161,6 +164,7 @@ main {
 }
 #sortRate  {
     background-color: var(--primary-color);
+    border: none;
     color: #fff;
     position: relative;
     border-radius: 15px;
@@ -169,6 +173,10 @@ main {
     padding: 0.75rem 0.8rem;
     font-size: 14px;
     box-shadow: 0 4px 5px rgba(0, 0, 0 , 0.2);
+}
+
+#sortRate:active {
+    transform: scale(0.8);
 }
 
 #sortRate i{
