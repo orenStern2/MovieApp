@@ -1,6 +1,7 @@
-const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=0aa7bf3cd83a95627438d27638d7505d';
+var allMovies = [];
+const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=0aa7bf3cd83a95627438d27638d7505d&page=${i}';
 const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
-const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=0aa7bf3cd83a95627438d27638d7505d&query="';
+const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=0aa7bf3cd83a95627438d27638d7505d';
 const main = document.getElementById('main');
 const form = document.getElementById('form');
 const search = document.getElementById('search');
@@ -11,23 +12,46 @@ let moviesData = [];
 
 
 
+getAllMovies(API_URL);
 
-
-
-// get initial movies
-getMovies(API_URL);
-
-async function getMovies(url) {
-    const res= await fetch(url);
+async function getTotalPages(url, searchTerm = '') {
+    const res = await fetch(`${url}&query=${searchTerm}`);
     const data = await res.json();
-
-    showMovies(data.results);
-
-
-
-    
-
+    const total_pages = data.total_pages;
+    return total_pages;
 }
+
+
+
+async function getAllMovies(url, searchTerm = '') {
+    const total_pages = await getTotalPages(url, searchTerm);
+    let limit = Math.min(total_pages, 10); // limit to 10 pages or less if total_pages < 10
+    for (let i = 1; i <= limit; i++) {
+        const url_page = `${url}&page=${i}&query=${searchTerm}`;
+        console.log(url_page);
+        const res = await fetch(url_page);
+        const data = await res.json();
+        allMovies = allMovies.concat(data.results);
+    }
+    
+    showMovies(allMovies)
+}
+
+// event listener on the form
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const searchTerm = search.value;
+
+    if(searchTerm && searchTerm !== '') {
+        main.innerHTML = '';
+        allMovies = []; // clear allMovies array
+        getAllMovies(SEARCH_API, searchTerm);
+        search.value = '';
+    } else {
+        window.location.reload();
+    }
+});
 
 function showMovies(movies) {
     moviesData = movies;
@@ -65,24 +89,6 @@ function getClassByRate(vote){
         return 'red';
     }
 };
-
-
-// event listener on the form
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const searchTerm = search.value;
-
-    if(searchTerm && searchTerm !== '') {
-        main.innerHTML = '';
-        getMovies(SEARCH_API + searchTerm);
-        console.log(SEARCH_API + searchTerm)
-        search.value = '';
-    } else {
-        window.location.reload();
-    }
-});
-
 
 sortDate.addEventListener('click', () => {
     main.innerHTML = '';
