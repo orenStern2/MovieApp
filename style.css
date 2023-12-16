@@ -125,11 +125,12 @@ main {
 }
 
 #year {
-    color: black;
-    font-weight: 900;
+    font-family: 'Comic Sans MS', cursive;
+    color: rgb(55, 59, 105);
+    font-weight: 1000;
     position: absolute;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 0.25rem 0.5rem;
     border-radius: 0px;
     box-shadow: 0 4px 5px rgba(0, 0, 0 , 0.2);
