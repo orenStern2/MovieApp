@@ -29,15 +29,16 @@ var currentDate = `${year}-${month}-${day}`;
 
 async function getAllMovies(url, searchTerm = '') {
     const total_pages = await getTotalPages(url, searchTerm);
-    let limit = Math.min(total_pages, 20); // limit to 10 pages or less if total_pages < 10
+    let limit = Math.min(total_pages, 5); // limit to 10 pages or less if total_pages < 10
     for (let i = 1; i <= limit; i++) {
         const url_page = `${url}&page=${i}&query=${searchTerm}&sort_by=primary_release_date.desc&primary_release_date.lte=${currentDate}`;
         const res = await fetch(url_page);
         const data = await res.json();
         allMovies = allMovies.concat(data.results);
+showMovies(allMovies)
     }
     
-    showMovies(allMovies)
+    
 }
 
 // event listener on the form
