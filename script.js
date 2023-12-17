@@ -172,12 +172,13 @@ async function showMovies(movies) {
 
     moviesWithCast.forEach(movie => {
         const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language, castNames } = movie;
-        console.log('cast', castNames);
+        
         const releaseYear = new Date(release_date).getFullYear(); // get the year from the release_date
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         if (poster_path != null && genre_ids.length > 0) {
             const genreNames = genre_ids.map((genreId) => genresMap.get(genreId)).join(', '); // get genre names from genre_ids using genresMap
+            const castNamesFormatted = castNames.join('<br>'); // format cast names with line breaks
             movieEl.innerHTML = `
             <img translate="no" src="${IMG_PATH + poster_path}" alt="${title}">
             <div class="movie-info">
@@ -185,11 +186,11 @@ async function showMovies(movies) {
                 <i style="padding: 1px"></i><span class="notranslate" translate="no">${original_language}</span>
                 <i style="padding: 1px"></i><span class="notranslate" translate="no">${genreNames}</span>
             </div>
-            <i style="padding: 1px"></i><span class="notranslate" translate="no">${castNames}</span>
             <span translate="no" id="year">${title} [${releaseYear}]</span>
             <div class="overview">
                 <h3>Overview</h3>
-                ${overview}
+                ${overview}<br><br>
+               <h3>Cast:</h3>${castNamesFormatted}
             </div>
             `;
             main.appendChild(movieEl);
