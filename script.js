@@ -11,6 +11,20 @@ const sortRate = document.getElementById('sortRate');
 let moviesData = [];
 
 
+const PERSON_SEARCH_API = 'https://api.themoviedb.org/3/search/person?&adult=false&api_key=0aa7bf3cd83a95627438d27638d7505d';
+async function getMoviesByCastName(castName) {
+    const res = await fetch(`${PERSON_SEARCH_API}&query=${castName}`);
+    const data = await res.json();
+    const person = data.results.find(result => result.name.toLowerCase() === castName.toLowerCase());
+    if (person) {
+        allMovies = person.known_for; // known_for field contains the movies the person is known for
+        showMovies(allMovies);
+    } else {
+        console.log(`No person found with the name ${castName}`);
+    }
+}
+
+
 
 getAllMovies(API_URL);
 
@@ -60,7 +74,16 @@ form.addEventListener('submit', (e) => {
     if(searchTerm && searchTerm !== '') {
         main.innerHTML = '';
         allMovies = []; // clear allMovies array
-        getAllMovies(SEARCH_API, searchTerm);
+        try{
+            if (getMoviesByCastName(searchTerm).length > 0 ) {
+              
+            } else {
+                getAllMovies(SEARCH_API, searchTerm);
+            }
+        } catch (e) {
+            getAllMovies(SEARCH_API, searchTerm);
+        }
+               
         search.value = '';
     } else {
         window.location.reload();
@@ -153,7 +176,6 @@ const genresMap = genresData.genres.reduce((map, genre) => {
     map.set(genre.id, genre.name);
     return map;
 }, new Map());
-
 
 
 
