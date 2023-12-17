@@ -7,13 +7,14 @@ const form = document.getElementById('form');
 const search = document.getElementById('search');
 const sortDate = document.getElementById('sortDate');
 const sortRate = document.getElementById('sortRate');
-
+// const credits = "https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=0aa7bf3cd83a95627438d27638d7505d&language=en-US";
 let moviesData = [];
 
 
 
 getAllMovies(API_URL);
 
+// get total pages
 async function getTotalPages(url, searchTerm = '') {
     const res = await fetch(`${url}&query=${searchTerm}`);
     const data = await res.json();
@@ -35,11 +36,20 @@ async function getAllMovies(url, searchTerm = '') {
         const res = await fetch(url_page);
         const data = await res.json();
         allMovies = allMovies.concat(data.results);
-showMovies(allMovies)
+        showMovies(allMovies)
+        
     }
-    
-    
+     
 }
+
+// get cast
+async function getCast(movieId) {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=0aa7bf3cd83a95627438d27638d7505d&language=en-US`);
+    const data = await res.json();
+    // console.log(data.cast);
+    return data.cast;
+}
+
 
 // event listener on the form
 form.addEventListener('submit', (e) => {
@@ -146,11 +156,23 @@ const genresMap = genresData.genres.reduce((map, genre) => {
 
 
 
-function showMovies(movies) {
+
+async function showMovies(movies) {
     moviesData = movies;
     MediaDeviceInfo.innerHTML = ''; // clear main
-    movies.forEach((movie) => {
-        const { genre_ids, title, poster_path, vote_average, overview, release_date, original_language} = movie; // destructuring the movie object
+
+    const moviePromises = movies.map(async movie => {
+        const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language} = movie; // destructuring the movie object
+        const cast = await getCast(id);
+        const castNames = cast.map(castMember => castMember.name);
+        return { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language, castNames };
+    });
+
+    const moviesWithCast = await Promise.all(moviePromises);
+
+    moviesWithCast.forEach(movie => {
+        const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language, castNames } = movie;
+        console.log('cast', castNames);
         const releaseYear = new Date(release_date).getFullYear(); // get the year from the release_date
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
@@ -163,6 +185,7 @@ function showMovies(movies) {
                 <i style="padding: 1px"></i><span class="notranslate" translate="no">${original_language}</span>
                 <i style="padding: 1px"></i><span class="notranslate" translate="no">${genreNames}</span>
             </div>
+            <i style="padding: 1px"></i><span class="notranslate" translate="no">${castNames}</span>
             <span translate="no" id="year">${title} [${releaseYear}]</span>
             <div class="overview">
                 <h3>Overview</h3>
@@ -171,9 +194,11 @@ function showMovies(movies) {
             `;
             main.appendChild(movieEl);
         }
-    })
-
+    });
 }
+
+
+
 
 function getClassByRate(vote){
     if(vote >= 8) {
