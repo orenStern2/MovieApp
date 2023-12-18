@@ -177,7 +177,7 @@ const genresMap = genresData.genres.reduce((map, genre) => {
 async function showMovies(movies) {
     moviesData = movies;
     MediaDeviceInfo.innerHTML = ''; // clear main
-    const sortedMovies = [...allMovies].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+    const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
     const moviePromises = movies.map(async movie => {
         const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language} = movie; // destructuring the movie object
         const cast = await getCast(id);
