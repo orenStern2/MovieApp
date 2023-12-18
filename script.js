@@ -229,12 +229,9 @@ function getClassByRate(vote){
     }
 };
 
-sortDate.addEventListener('click', () => {
+sortRate.addEventListener('click', () => {
     main.innerHTML = '';
-    const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+    const sortedMovies = [...moviesData].sort((a, b) => b.vote_average - a.vote_average);
     showMovies(sortedMovies);
 });
 
-async function sortDate(() = > {
-    
-}
