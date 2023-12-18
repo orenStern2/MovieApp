@@ -213,10 +213,12 @@ async function showMovies(movies) {
         }
        
     });
-    autoSortMovies();
+    
 }
+autoSortMovies();
 
 function autoSortMovies() {
+    MediaDeviceInfo.innerHTML = ''; // clear main
     showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)));
 }
 
