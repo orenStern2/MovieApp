@@ -211,6 +211,7 @@ async function showMovies(movies) {
             `;
             main.appendChild(movieEl);
         }
+        showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)));
     });
     
 }
@@ -229,7 +230,7 @@ function getClassByRate(vote){
 };
 
 
-showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)););
+showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)));
 
 sortRate.addEventListener('click', () => {
     main.innerHTML = '';
