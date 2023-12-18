@@ -24,7 +24,7 @@ async function getMoviesByCastName(castName) {
 }
 
 getAllMovies(API_URL);
-
+autoSortMovies();
 // get total pages
 async function getTotalPages(url, searchTerm = '') {
     const res = await fetch(`${url}&query=${searchTerm}`);
@@ -215,7 +215,8 @@ async function showMovies(movies) {
     });
     
 }
-autoSortMovies();
+
+
 
 function autoSortMovies() {
     MediaDeviceInfo.innerHTML = ''; // clear main
