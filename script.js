@@ -213,10 +213,13 @@ async function showMovies(movies) {
         }
        
     });
-    
+    autoSortMovies();
 }
 
-showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)));
+function autoSortMovies() {
+    showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)));
+}
+
 
 
 function getClassByRate(vote){
