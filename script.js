@@ -10,7 +10,6 @@ const sortRate = document.getElementById('sortRate');
 // const credits = "https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=0aa7bf3cd83a95627438d27638d7505d&language=en-US";
 let moviesData = [];
 
-
 const PERSON_SEARCH_API = 'https://api.themoviedb.org/3/search/person?&adult=false&api_key=0aa7bf3cd83a95627438d27638d7505d';
 async function getMoviesByCastName(castName) {
     const res = await fetch(`${PERSON_SEARCH_API}&query=${castName}`);
@@ -23,8 +22,6 @@ async function getMoviesByCastName(castName) {
         console.log(`No person found with the name ${castName}`);
     }
 }
-
-
 
 getAllMovies(API_URL);
 
@@ -50,10 +47,9 @@ async function getAllMovies(url, searchTerm = '') {
         const res = await fetch(url_page);
         const data = await res.json();
         allMovies = allMovies.concat(data.results);
-        showMovies(allMovies)
-        
-    }
-     
+        const sortedMovies = [...allMovies].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+        showMovies(allMovies)   
+    }  
 }
 
 // get cast
@@ -218,6 +214,7 @@ async function showMovies(movies) {
             main.appendChild(movieEl);
         }
     });
+    
 }
 
 
@@ -245,4 +242,6 @@ sortRate.addEventListener('click', () => {
     showMovies(sortedMovies);
 });
 
-
+async function sortDate(() = > {
+    
+}
