@@ -228,8 +228,8 @@ function getClassByRate(vote){
     }
 };
 
-const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-showMovies(sortedMovies);
+
+showMovies([...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date)););
 
 sortRate.addEventListener('click', () => {
     main.innerHTML = '';
