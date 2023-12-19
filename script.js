@@ -9,7 +9,7 @@ const sortDate = document.getElementById('sortDate');
 const sortRate = document.getElementById('sortRate');
 // const credits = "https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=0aa7bf3cd83a95627438d27638d7505d&language=en-US";
 let moviesData = [];
-// first test
+
 
 const PERSON_SEARCH_API = 'https://api.themoviedb.org/3/search/person?&adult=false&api_key=0aa7bf3cd83a95627438d27638d7505d';
 async function getMoviesByCastName(castName) {
@@ -24,10 +24,8 @@ async function getMoviesByCastName(castName) {
     }
 }
 
-
-
 getAllMovies(API_URL);
-
+autoSortMovies();
 // get total pages
 async function getTotalPages(url, searchTerm = '') {
     const res = await fetch(`${url}&query=${searchTerm}`);
@@ -50,10 +48,8 @@ async function getAllMovies(url, searchTerm = '') {
         const res = await fetch(url_page);
         const data = await res.json();
         allMovies = allMovies.concat(data.results);
-        showMovies(allMovies)
-        
-    }
-     
+        showMovies(allMovies)   
+    }  
 }
 
 // get cast
@@ -182,7 +178,6 @@ const genresMap = genresData.genres.reduce((map, genre) => {
 async function showMovies(movies) {
     moviesData = movies;
     MediaDeviceInfo.innerHTML = ''; // clear main
-
     const moviePromises = movies.map(async movie => {
         const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language} = movie; // destructuring the movie object
         const cast = await getCast(id);
@@ -226,8 +221,11 @@ async function showMovies(movies) {
             `;
             main.appendChild(movieEl);
         }
+       
     });
+    
 }
+
 
 
 
@@ -241,16 +239,9 @@ function getClassByRate(vote){
     }
 };
 
-sortDate.addEventListener('click', () => {
-    main.innerHTML = '';
-    const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-    showMovies(sortedMovies);
-});
-
 sortRate.addEventListener('click', () => {
     main.innerHTML = '';
     const sortedMovies = [...moviesData].sort((a, b) => b.vote_average - a.vote_average);
     showMovies(sortedMovies);
 });
-
 
