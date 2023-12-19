@@ -199,10 +199,9 @@ async function showMovies(movies) {
         
         // Check if title already exists in the DOM
         const existingMovie = document.querySelector(`.movie[data-title="${title}"]`);
-        if (existingMovie) {
+             if (existingMovie) {
             return; // Skip this movie if it already exists
         }
-        
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.setAttribute('data-title', title); // Set data attribute for the movie title
@@ -241,11 +240,6 @@ function getClassByRate(vote){
     }
 };
 
-sortDate.addEventListener('click', () => {
-    main.innerHTML = '';
-    const sortedMovies = [...moviesData].sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-    showMovies(sortedMovies);
-});
 
 sortRate.addEventListener('click', () => {
     main.innerHTML = '';
