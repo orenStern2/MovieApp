@@ -193,11 +193,20 @@ async function showMovies(movies) {
     const moviesWithCast = await Promise.all(moviePromises);
 
     moviesWithCast.forEach(movie => {
-        const { id, genre_ids, title, poster_path, vote_average, overview, release_date, original_language, castNames } = movie;
+        const { genre_ids, title, poster_path, vote_average, overview, release_date, original_language, castNames } = movie;
         
         const releaseYear = new Date(release_date).getFullYear(); // get the year from the release_date
+        
+        // Check if title already exists in the DOM
+        const existingMovie = document.querySelector(`.movie[data-title="${title}"]`);
+        if (existingMovie) {
+            return; // Skip this movie if it already exists
+        }
+        
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
+        movieEl.setAttribute('data-title', title); // Set data attribute for the movie title
+        
         if (poster_path != null && genre_ids.length > 0) {
             const genreNames = genre_ids.map((genreId) => genresMap.get(genreId)).join(', '); // get genre names from genre_ids using genresMap
             const castNamesFormatted = castNames.join('<br>'); // format cast names with line breaks
@@ -219,7 +228,6 @@ async function showMovies(movies) {
         }
     });
 }
-
 
 
 
